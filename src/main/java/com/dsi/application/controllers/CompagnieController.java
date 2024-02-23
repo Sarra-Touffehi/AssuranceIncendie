@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -38,6 +39,21 @@ public void addCompagnie(@RequestParam("file") MultipartFile file,
 	 compserv.saveCompagnie(file, nom, siege,tel);
 }
 
+@GetMapping("/compagnies/{id}")
+public Compagnie getOne(@PathVariable("id") int id) {
+	return compserv.findCompagnie(id);
+}
+
+
+@PutMapping(value = "/compagnies/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+public void updateCompagnie(
+        @PathVariable("id") int id,
+        @RequestParam(value = "file", required = false) MultipartFile file,
+        @RequestParam(value = "compnom", required = false) String nom,
+        @RequestParam(value = "compsiege", required = false) String siege,
+        @RequestParam(value = "comptel", required = false) String tel) {
+    compserv.updateCompagnie(id, file, nom, siege, tel);
+}
 
 @DeleteMapping("/compagnies/{id}")
 public boolean deleteCompagnie(@PathVariable("id") int id) {
