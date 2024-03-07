@@ -49,5 +49,20 @@ id, @RequestBody Offre updatedOffre) {
 ResponseEntity.status(HttpStatus.NOT_FOUND).body("Impossible de mettre à jour l'offre");
         }
     }
+    
+    
+    @PostMapping("/compagnies/{idcomp}/offres")
+    public ResponseEntity<String>
+ajouterOffrePourCompagnie(@PathVariable("idcomp") int
+idcomp,@RequestBody Offre offre) {
+        boolean ajoutReussi =
+        		offreserv.ajouterOffrePourCompagnie(idcomp, offre);
+        if (ajoutReussi) {
+            return ResponseEntity.ok().body("Offre ajoutée avec succès pour la compagnie avec l'ID : " + idcomp);
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erreur lors de l'ajout de l'offre pour la compagnie avec l'ID : " + idcomp);
+        }
+    }
 
 }

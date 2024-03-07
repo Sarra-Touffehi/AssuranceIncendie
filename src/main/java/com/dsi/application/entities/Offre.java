@@ -1,13 +1,22 @@
 package com.dsi.application.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="offres")
 public class Offre {
@@ -22,6 +31,7 @@ private float taux_risque;
 @ManyToOne
     @JoinColumn(name = "idcomp")
     private Compagnie compagnie;
+
 public int getIdOffre() {
 return idOffre;
 }
@@ -29,6 +39,10 @@ return idOffre;
 public void setIdOffre(int idOffre) {
 this.idOffre = idOffre;
 }
+
+@ManyToMany(mappedBy="offres")
+private Set<Client> clients=new HashSet<>();
+
 
 public String getNom() {
 return nom;
@@ -69,4 +83,13 @@ return taux_risque;
 public void setTaux_risque(float taux_risque) {
 this.taux_risque = taux_risque;
 }
+
+
+public void setCompagnie(Compagnie compagnie) {
+this.compagnie = compagnie;
+}
+/*
+public Compagnie getCompagnie() {
+return compagnie;
+}*/
 }

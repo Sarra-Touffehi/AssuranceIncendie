@@ -11,6 +11,7 @@ public class AssuranceIncendieApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AssuranceIncendieApplication.class, args);
+		System.out.println("Application started!");
 	}
 	@Configuration  
 	public class CorsConfig implements WebMvcConfigurer {

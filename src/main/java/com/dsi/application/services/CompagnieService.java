@@ -22,24 +22,27 @@ public class CompagnieService {
 	public void saveCompagnie (MultipartFile file, String nom, String siege, String tel) {
 		
 		Compagnie comp= new Compagnie();
-		String fileName= StringUtils.cleanPath(file.getOriginalFilename());
-		if(fileName.contains("..")) {
-			System.out.println("not a valid file");
-		}
+		
 		
 		try {
+			String fileName= StringUtils.cleanPath(file.getOriginalFilename());
+			if(fileName.contains("..")) {
+				System.out.println("not a valid file");
+			}
 		comp.setLogo(file.getBytes());
+		comp.setNom(nom);
+		comp.setSiege(siege);
+		comp.setTel(tel);
+		comprep.save(comp);
 		
 	}
 		catch(IOException e) {
 			e.printStackTrace();
 		}
 		
-		comp.setNom(nom);
-		comp.setSiege(siege);
-		comp.setTel(tel);
 		
-		comprep.save(comp);
+		
+		
 		
 	}
 

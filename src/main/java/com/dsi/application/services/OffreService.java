@@ -5,13 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dsi.application.entities.Compagnie;
 import com.dsi.application.entities.Offre;
+import com.dsi.application.repositories.CompagnieRep;
 import com.dsi.application.repositories.OffreRep;
 
 @Service
 public class OffreService {
 @Autowired
 OffreRep offrerep;
+@Autowired
+CompagnieRep compagnieRepository;
 
 public boolean saveOffre (Offre offre) {
 if(offrerep.save(offre)!=null)
@@ -38,4 +42,18 @@ return offrerep.findAll();
             return false;
         }
     }
+    
+    
+    public boolean ajouterOffrePourCompagnie(int idcomp, Offre offre) {
+        Compagnie compagnie = compagnieRepository.findById(idcomp)
+                    .orElseThrow(() -> new
+    IllegalArgumentException("Compagnie non trouvée avec l'ID : " + idcomp));
+
+            offre.setCompagnie(compagnie);
+            Offre savedOffre = offrerep.save(offre);
+            compagnie.getOffres().add(savedOffre);
+
+            return savedOffre != null;
+        }
+
 }

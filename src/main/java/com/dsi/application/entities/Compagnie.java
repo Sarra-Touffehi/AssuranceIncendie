@@ -72,4 +72,13 @@ public class Compagnie {
 		this.tel = tel;
 	}
 	
+	
+	public List<Offre> getOffres() {
+        return offres;
+    }
+
+    public void setOffres(List<Offre> offres) {
+        this.offres = offres;
+    }
+
 }
